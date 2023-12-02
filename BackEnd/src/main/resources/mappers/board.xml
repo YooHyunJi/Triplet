@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sj.trip.board.model.repo.BoardRepo">
+    <resultMap type="BoardCommentDto" id="comment">
+        <result column="boardNo" property="boardNo"/>
+        <result column="commentNo" property="commentNo"/>
+        <result column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="createDate" property="createDate"/>
+    </resultMap>
+
+    <resultMap type="BoardDto" id="board">
+        <result column="boardNo" property="boardNo"/>
+        <result column="id" property="id"/>
+        <result column="subject" property="subject"/>
+        <result column="content" property="content"/>
+        <result column="img" property="img"/>
+        <result column="createDate" property="createDate"/>
+    </resultMap>
+
+    <resultMap type="SearchCondition" id="SearchConditionDto">
+        <result column="condition" property="condition"/>
+        <result column="content" property="content"/>
+        <result column="orderBy" property="orderBy"/>
+        <result column="orderByDir" property="orderByDir"/>
+    </resultMap>
+
+    <resultMap id="like" type="BoardLikeDto">
+        <result column="id" property="id"/>
+        <result column="boardNo" property="boardNo"/>
+    </resultMap>
+
+    <insert id="writeArticle">
+        insert into board (id, subject, content, hit, createDate)
+        values(#{id}, #{subject}, #{content}, 0, now())
+    </insert>
+
+    <select id="listArticle" resultMap="board">
+        select * from board
+    </select>
+
+    <select id="searchByCondition">
+        select * from board
+        <if test="condition==1">
+            where boardNo=#{content}
+        </if>
+        <if test="condition==2">
+            where subject LIKE CONCAT('%', #{content}, '%')
+        </if>
+        <if test="condition==3">
+            where id= #{content}
+        </if>
+        <if test="orderBy!='none'">
+            order by ${orderBy} ${orderByDir}
+        </if>
+    </select>
+
+<!--
+condition == 1  : boardNo
+condition == 2  : subject
+condition == 3  : id
+-->
+    <sql id="search">
+        <if test="content != null and content != ''">
+            <if test="condition=='1'">
+                and boardNo = #{content}
+            </if>
+            <if test="condition==2">
+                and subject LIKE CONCAT('%', #{content}, '%')
+            </if>
+            <if test="condition==3">
+                and id= #{content}
+            </if>
+        </if>
+    </sql>
+
+    <select id="listArticlePg" parameterType="map" resultMap="board">
+        select *
+        from board
+        <where>
+            <if test="content != null and content != ''">
+                <if test="condition==1">
+                     boardNo = #{content}
+                </if>
+                <if test="condition==2">
+                     subject LIKE CONCAT('%', #{content}, '%')
+                </if>
+                <if test="condition==3">
+                     id = #{content}
+                </if>
+            </if>
+        </where>
+        order by boardNo
+        limit #{start}, #{listsize}
+    </select>
+
+    <select id="getTotalArticleCount" parameterType="map" resultType="int">
+        select count(boardNo)
+        from board
+        <where>
+            <include refid="search"></include>
+        </where>
+    </select>
+
+
+    <select id="getArticle">
+        select * from board where boardNo=#{boardNo}
+    </select>
+
+    <update id="updateHit">
+        update board set hit = hit+1 where boardNo=#{boardNo}
+    </update>
+
+    <update id="modifyArticle">
+        update board set subject=#{subject}, content=#{content}, createDate=now()
+        where boardNo=#{boardNo}
+    </update>
+
+    <delete id="deleteArticle">
+        delete from board where boardNo=#{boardNo}
+    </delete>
+
+    <insert id="writeComment">
+        insert into boardcomment (boardNo, commentNo, id, content, createDate)
+        values(#{boardNo}, #{commentNo}, #{id}, #{content}, now())
+    </insert>
+
+    <select id="listComment" resultMap="comment">
+        select * from boardcomment where boardNo=#{boardNo};
+    </select>
+
+    <update id="modifyComment">
+        update boardcomment set content=#{content}, createDate=now()
+        where commentNo=#{commentNo}
+    </update>
+
+    <delete id="deleteComment">
+        delete from boardcomment where commentNo=#{commentNo}
+    </delete>
+
+
+
+    <select id="getBoardLikeById" resultMap="like">
+        select id, boardNo
+        from boardlike
+        where id = #{id} and boardNo = #{boardNo}
+    </select>
+
+    <select id="getNumBoardLikes">
+        select count(*)
+        from boardLike
+        where boardNo = #{boardNo}
+        group by boardNo
+    </select>
+
+    <insert id="addBoardLike" parameterType="map">
+        insert into boardlike
+        (id, boardNo)
+        values
+        (#{id}, #{boardNo})
+    </insert>
+
+    <delete id="deleteBoardLike" parameterType="map">
+        delete
+        from boardlike
+        where id = #{id} and boardNo = #{boardNo}
+    </delete>
+
+    <select id="getLikeList" parameterType="String" resultMap="board">
+        SELECT b.boardNo as boardNo, b.id as id, b.subject as subject, b.content as content, b.createDate as createDate, b.hit as hit
+        FROM board b
+                 INNER JOIN boardlike
+                            ON b.boardNo = boardlike.boardNo
+        where boardlike.id = #{id};
+    </select>
+</mapper>

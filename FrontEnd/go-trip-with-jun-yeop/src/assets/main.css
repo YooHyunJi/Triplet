@@ -1,0 +1,107 @@
+@font-face {
+  font-family: 'Cafe24Supermagic-Bold-v1.0';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'MICEGothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'locus_sangsang';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/locus_sangsang.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'twaysky';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twaysky.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body{
+  font-family: 'Pretendard-Regular';
+  background-color: rgb(235, 234, 233);
+  margin: 0;
+  height: 100%;
+  font-size: 1.7vh;
+  min-width: 500px;
+  color: rgb(50, 50, 50);
+}
+
+input, button, textarea{
+  font-family: 'Pretendard-Regular';
+  border: none;
+  font-size: 1.5vh;
+}
+
+button{
+  cursor: pointer;
+  font-size: 2vh;
+  background-color: rgba(122, 133, 139, 0.5);
+  color: rgb(240, 240, 240);
+}
+
+button:hover{
+  transition: 0.4s;
+}
+
+input:focus{
+  outline: 0.3vh solid rgba(122, 133, 139, 0.5);
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+  /* border: 0.2vh solid rgb(245, 245, 245); */
+  color: rgb(50, 50, 50);
+  border-radius: 1vh;
+  font-size: 1.5vh;
+  padding: 0 1vh;
+  box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+  color: rgb(50, 50, 50);
+  display: block;
+}
+
+ul{
+  list-style: none;
+}
+
+.Wrapper{
+  width: 100%;
+  margin: 10vh 0;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  border-radius: 1vh;
+  background-color: rgb(235, 234, 233);
+  width: 1vh;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 1vh;
+  background-color: rgb(200, 200, 200);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}

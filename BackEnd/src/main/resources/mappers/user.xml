@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sj.trip.login.model.mapper.UserMapper">
+
+    <resultMap type="fileDto" id="file">
+        <result column="id" property="id"/>
+        <result column="profile" property="profile"/>
+    </resultMap>
+
+    <resultMap type="userDto" id="user">
+        <result column="id" property="id"/>
+        <result column="pwd" property="pwd"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="token" property="token"/>
+        <result column="nickName" property="nickName"/>
+        <result column="joinDate" property="joinDate"/>
+    </resultMap>
+
+    <resultMap type="userFileDto" id="userfile">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="profile" property="profile"/>
+        <result column="token" property="token"/>
+        <result column="nickName" property="nickName"/>
+        <result column="joinDate" property="joinDate"/>
+    </resultMap>
+
+    <select id="login" parameterType="map" resultMap="user">
+        select id, name, token
+        from users
+        where id = #{id} and pwd = #{pwd}
+    </select>
+
+    <select id="userInfo" parameterType="string" resultMap="userfile">
+        select name, id, pwd, nickName, email, profile, joinDate
+        from users
+        where id = #{id}
+    </select>
+
+    <update id="saveRefreshToken" parameterType="map">
+        update users
+        set token = #{token}
+        where id = #{id}
+    </update>
+
+    <select id="getRefreshToken" parameterType="string" resultType="string">
+        select token
+        from users
+        where id = #{id}
+    </select>
+
+    <update id="deleteRefreshToken" parameterType="map">
+        update users
+        set token = #{token, jdbcType=VARCHAR}
+        where id = #{id}
+    </update>
+
+    <update id="userUpdate" parameterType="map">
+        update users
+        set nickName = #{nickName}, profile=#{profile}
+        where id = #{id}
+    </update>
+
+    <insert id="signUp" parameterType="map">
+        insert into users
+        (id, pwd, name, email, nickName)
+        values
+        (#{id}, #{pwd}, #{name}, #{email}, #{nickName})
+    </insert>
+
+    <select id="checkNickName" parameterType="string" resultMap="user">
+        select nickName
+        from users
+        where nickName = #{nickName}
+    </select>
+
+    <update id="uploadImage" parameterType="map">
+        update users
+        set profile = #{profile}
+        where id = #{id}
+    </update>
+
+    <select id="downloadImage" parameterType="string" resultMap="file">
+        select profile
+        from users
+        where id = #{id}
+    </select>
+
+    <update id="changePwd" parameterType="map">
+        update users
+        set pwd = #{newPwd}
+        where id = #{id}
+    </update>
+
+    <update id="changeNickName" parameterType="map">
+        update users
+        set nickName = #{nickName}
+        where id = #{id}
+    </update>
+
+    <select id="findNickname">
+        select nickname
+        from users
+        where id=#{id}
+    </select>
+    <select id="findId">
+        select id
+        from users
+        where nickName=#{nickName}
+    </select>
+
+</mapper>
