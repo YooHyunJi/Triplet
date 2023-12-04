@@ -119,7 +119,7 @@ const getMessageText = (message) => {
 };
 </script>
 
-<style>
+<style scoped>
 .chat-container {
   width: 60%;
   min-width: 40vh;
@@ -210,5 +210,9 @@ const getMessageText = (message) => {
   color: white;
   text-align: right;
   margin-left: auto;
+}
+
+::-webkit-scrollbar {
+  background-color: rgb(245, 245, 245);
 }
 </style>
