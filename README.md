@@ -1,5 +1,6 @@
 <p align="center"><img width="50%" alt="Triplet_logo" src="https://github.com/YooHyunJi/Triplet/assets/88645538/6b2791cf-6e45-4b37-967b-bb9edf9f91c7"></p>
-<h3 style="text-align:center">Let's Trip, Triplet!</h3>
+
+_<center>Let's Trip, Triplet!</center>_
 <br>
 
 Triplet은 공공 데이터를 이용한 여행 계획 웹 서비스입니다  
