@@ -2,9 +2,9 @@
 <p align="center" style="font-weight: bold;font-style: italic">Let's Trip, Triplet!</p>
 <br>
 
-Triplet은 공공 데이터를 이용한 여행 계획 웹 서비스입니다  
-모두를 위한 여행지 정보 제공부터 회원만을 위한 나만의 여행 계획, 여행 정보를 얻을 수 있는 게시판과 채팅까지!  
-여행을 위한 모든 준비를 도와드립니다
+<p align="center">Triplet은 공공 데이터를 이용한 여행 계획 웹 서비스입니다</p>  
+<p align="center">모두를 위한 여행지 정보 제공부터 회원만을 위한 나만의 여행 계획, 여행 정보를 얻을 수 있는 게시판과 채팅까지!</p>  
+<p align="center">여행을 위한 모든 준비를 도와드립니다</p>
 
 <br>
 
